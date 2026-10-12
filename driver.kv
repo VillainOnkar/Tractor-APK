@@ -1,0 +1,97 @@
+<DriverScreen>:
+    name: "driver"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.96, 0.97, 0.98, 1
+        padding: ["10dp", "0dp", "10dp", "10dp"] # Top padding 0 karne se card upar ho jayega
+        spacing: "5dp"
+
+        # --- FORM SECTION (Ab aur upar hai) ---
+        MDCard:
+            orientation: "vertical"
+            padding: ["16dp", "10dp", "16dp", "10dp"]
+            spacing: "6dp" # Fields ke beech ka gap kam kiya
+            size_hint_y: None
+            height: "560dp" # Height thodi kam ki taaki history zyada dikhe
+            radius: 15
+            elevation: 1
+            md_bg_color: 1, 1, 1, 1
+
+            MDLabel:
+                text: "Driver & Work Entry"
+                bold: True
+                font_style: "H6"
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: "35dp"
+
+            # Saare 7 Entry Fields Ek ke niche Ek
+            MDTextField:
+                id: name_input
+                hint_text: "Driver ka Pura Naam"
+                icon_left: "account"
+                mode: "rectangle"
+
+            MDTextField:
+                id: phone_input
+                hint_text: "Mobile Number"
+                icon_left: "phone"
+                mode: "rectangle"
+                input_filter: "int"
+                max_text_length: 10
+
+            MDTextField:
+                id: address_input
+                hint_text: "Pura Pata (Address)"
+                icon_left: "map-marker"
+                mode: "rectangle"
+
+            MDTextField:
+                id: work_done
+                hint_text: "Kaam (Hours/Acre)"
+                icon_left: "clock-outline"
+                mode: "rectangle"
+
+            MDTextField:
+                id: work_location
+                hint_text: "Khet ya Location"
+                icon_left: "map-check"
+                mode: "rectangle"
+
+            MDTextField:
+                id: total_to_pay
+                hint_text: "Total Bill (Amount ₹)"
+                icon_left: "cash-plus"
+                mode: "rectangle"
+                input_filter: "float"
+
+            MDTextField:
+                id: amount_paid
+                hint_text: "Kitna Paisa Diya (₹)"
+                icon_left: "cash-check"
+                mode: "rectangle"
+                input_filter: "float"
+
+            MDRaisedButton:
+                text: "SAVE DRIVER DETAILS"
+                size_hint_x: 1
+                height: "45dp"
+                md_bg_color: 0.2, 0.5, 0.3, 1
+                on_release: app.process_new_driver()
+
+        # --- HISTORY SECTION (Ab zyada jagah milegi) ---
+        MDLabel:
+            text: "Recent Work History"
+            font_style: "Subtitle2"
+            bold: True
+            adaptive_height: True
+            padding: ["5dp", "5dp"]
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                id: driver_history_container
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "8dp"
+                padding: "5dp"

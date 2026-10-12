@@ -1,0 +1,116 @@
+<CustomerScreen>:
+    name: "customer"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.98, 0.98, 0.98, 1
+        padding: "10dp"
+
+        # --- MAIN INPUT CARD ---
+        MDCard:
+            orientation: "vertical"
+            padding: ["15dp", "10dp", "15dp", "15dp"]
+            spacing: "8dp"
+            size_hint_y: None
+            height: self.minimum_height
+            radius: 15
+            elevation: 2
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDLabel:
+                text: "Add New Entry"
+                font_style: "Subtitle1"
+                bold: True
+                adaptive_height: True
+                halign: "center"
+                theme_text_color: "Primary"
+
+            # Saare fields ek ke niche ek
+            MDTextField:
+                id: cust_name
+                hint_text: "Customer Name"
+                icon_left: "account"
+                mode: "rectangle"
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: cust_village
+                hint_text: "Village"
+                icon_left: "map-marker"
+                mode: "rectangle"
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: cust_phone
+                hint_text: "Phone Number"
+                icon_left: "phone"
+                mode: "rectangle"
+                input_filter: "int"
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: work_type
+                hint_text: "Work Type (Roto/Plow)"
+                icon_left: "tractor"
+                mode: "rectangle"
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: work_area
+                hint_text: "Total Acre"
+                icon_left: "texture-box"
+                mode: "rectangle"
+                on_text: app.calculate_cust_total()
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: work_rate
+                hint_text: "Rate per Acre"
+                icon_left: "currency-inr"
+                mode: "rectangle"
+                on_text: app.calculate_cust_total()
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: total_amt
+                hint_text: "Total Bill (Auto)"
+                icon_left: "cash-multiple"
+                mode: "rectangle"
+                readonly: True
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: paid_amt
+                hint_text: "Amount Received Now"
+                icon_left: "cash-check"
+                mode: "rectangle"
+                size_hint_y: None
+                height: "45dp"
+
+            MDTextField:
+                id: manual_date_input
+                hint_text: "Date (DD-MM-YYYY)"
+                icon_left: "calendar-edit"
+                mode: "rectangle"
+                size_hint_y: None
+                height: "45dp"
+
+            Widget:
+                size_hint_y: None
+                height: "10dp"
+
+            MDRaisedButton:
+                text: "SAVE CUSTOMER ENTRY"
+                size_hint_x: 1
+                height: "48dp"
+                on_release: app.save_customer_work()
+
+        # Niche space khali rahegi
+        Widget:
+            size_hint_y: 1

@@ -1,0 +1,91 @@
+<FuelScreen>:
+    name: "fuel"
+    
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.98, 0.98, 0.98, 1
+        padding: "10dp"
+        spacing: "10dp"
+
+        # --- YE SECTION FIXED RAHEGA (Scroll nahi hoga) ---
+        MDCard:
+            orientation: "vertical"
+            padding: "20dp"
+            spacing: "12dp"
+            size_hint_y: None
+            height: "450dp"  # Fixed height taaki fields hamesha samne rahe
+            radius: 15
+            elevation: 1
+            md_bg_color: 1, 1, 1, 1
+
+            MDLabel:
+                text: "Add Fuel Entry"
+                font_style: "H6"
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: "30dp"
+
+            MDTextField:
+                id: f_date
+                hint_text: "Date (DD-MM-YYYY)"
+                icon_left: "calendar"
+                mode: "rectangle"
+
+            MDTextField:
+                id: f_station
+                hint_text: "Fuel Station Name"
+                icon_left: "map-marker"
+                mode: "rectangle"
+
+            MDBoxLayout:
+                spacing: "10dp"
+                adaptive_height: True
+                MDTextField:
+                    id: f_liters
+                    hint_text: "Liters"
+                    input_filter: "float"
+                    icon_left: "gas-station"
+                    mode: "rectangle"
+                    on_text: app.calculate_fuel_total()
+
+                MDTextField:
+                    id: f_rate
+                    hint_text: "Rate"
+                    input_filter: "float"
+                    icon_left: "currency-inr"
+                    mode: "rectangle"
+                    on_text: app.calculate_fuel_total()
+
+            MDLabel:
+                id: f_total_label
+                text: "Total Amount: ₹ 0.00"
+                font_style: "H5"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 0, 0.5, 0, 1
+                bold: True
+
+            MDRaisedButton:
+                text: "SAVE ENTRY"
+                pos_hint: {"center_x": .5}
+                size_hint_x: 1
+                height: "45dp"
+                on_release: app.save_fuel_entry()
+
+        # --- HISTORY SECTION HEADER ---
+        MDLabel:
+            text: "Recent History"
+            font_style: "Subtitle1"
+            bold: True
+            adaptive_height: True
+            padding: ["5dp", "10dp"]
+
+        # --- SIRF YE SECTION SCROLL HOGA ---
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                id: history_container
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "8dp"
+                padding: "5dp"

@@ -1,0 +1,398 @@
+FloatLayout:
+
+    # ================= MAIN LAYOUT =================
+    MDBoxLayout:
+        orientation: "vertical"
+
+        # ---------- HEADER ----------
+        MDTopAppBar:
+            id: top_bar
+            title: "Tractor Management"
+            left_action_items: [["menu", lambda x: app.toggle_menu()]]
+            elevation: 6
+
+        # ---------- BODY ----------
+        ScreenManager:
+            id: screen_manager
+            
+            Screen:
+                name: "dashboard"
+                
+                 
+                 
+                MDBoxLayout:
+                    orientation: "vertical"
+                    md_bg_color: 0.95, 0.96, 0.98, 1  # Light Greyish Blue background
+
+
+                    ScrollView:
+                        do_scroll_x: False
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            adaptive_height: True
+                            padding: "20dp"
+                            spacing: "20dp"
+
+                            # --- Welcome Section ---
+                            MDBoxLayout:
+                                orientation: "vertical"
+                                size_hint_y: None
+                                height: "60dp"
+                                MDLabel:
+                                    text: "Welcome Back!"
+                                    font_style: "H6"
+                                    bold: True
+                                    # Gupt trigger: Double tap karne par hi finance page khulega
+                                    on_touch_down: 
+                                        if self.collide_point(*args[1].pos) and args[1].is_double_tap: app.change_screen("finance"); 
+                                        #app.self.start_finance_background_load()
+                                    theme_text_color: "Primary"
+
+                            # --- Statistics Grid ---
+                            MDGridLayout:
+                                cols: 2
+                                spacing: "20dp"
+                                adaptive_height: True
+
+                                # CARD 1: CUSTOMERS
+                                MDCard:
+                                    style: "elevated"
+                                    orientation: "vertical"
+                                    padding: "16dp"
+                                    size_hint_y: None
+                                    height: "180dp"
+                                    radius: 24
+                                    md_bg_color: 1, 1, 1, 1
+                                    on_release: app.change_screen("customer_list"); app.load_customer_list_data()
+                                    
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "8dp"
+                                        MDIcon:
+                                            icon: "account-group"
+                                            font_size: "54sp"
+                                            halign: "center"
+                                            pos_hint: {"center_x": .5} # Center Alignment
+                                            theme_text_color: "Custom"
+                                            text_color: 0.1, 0.4, 0.9, 1
+                                        MDLabel:
+                                            text: "Customers"
+                                            halign: "center"
+                                            font_style: "Button"
+                                            theme_text_color: "Secondary"
+                                        MDLabel:
+                                            id: dash_cust_count
+                                            text: "0"
+                                            halign: "center"
+                                            font_style: "H4"
+                                            bold: True
+                                            theme_text_color: "Primary"
+
+                                # CARD 2: DRIVERS
+                                MDCard:
+                                    style: "elevated"
+                                    orientation: "vertical"
+                                    padding: "16dp"
+                                    size_hint_y: None
+                                    height: "180dp"
+                                    radius: 24
+                                    md_bg_color: 1, 1, 1, 1
+                                    on_release: app.change_screen("driver_list");app.load_driver_list()
+                                    
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "8dp"
+                                        MDIcon:
+                                            icon: "steering"
+                                            font_size: "54sp"
+                                            halign: "center"
+                                            pos_hint: {"center_x": .5} # Center Alignment
+                                            theme_text_color: "Custom"
+                                            text_color: 0.1, 0.7, 0.3, 1
+                                        MDLabel:
+                                            text: "Drivers"
+                                            halign: "center"
+                                            font_style: "Button"
+                                            theme_text_color: "Secondary"
+                                        MDLabel:
+                                            id: dash_driver_count
+                                            text: "0"
+                                            halign: "center"
+                                            font_style: "H4"
+                                            bold: True
+                                            theme_text_color: "Primary"
+
+                                # CARD 3: MAINTENANCE
+                                MDCard:
+                                    style: "elevated"
+                                    orientation: "vertical"
+                                    padding: "16dp"
+                                    size_hint_y: None
+                                    height: "180dp"
+                                    radius: 24
+                                    md_bg_color: 1, 1, 1, 1
+                                    on_release: app.change_screen("maint_list");app.load_maintenance_list()
+                                    
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "8dp"
+                                        MDIcon:
+                                            icon: "tools"
+                                            font_size: "54sp"
+                                            halign: "center"
+                                            pos_hint: {"center_x": .5} # Center Alignment
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 0.5, 0, 1
+                                        MDLabel:
+                                            text: "Maint. Cost"
+                                            halign: "center"
+                                            font_style: "Button"
+                                            theme_text_color: "Secondary"
+                                        MDLabel:
+                                            id: dash_maint_cost
+                                            text: "₹ 0"
+                                            halign: "center"
+                                            font_style: "H5"
+                                            bold: True
+                                            theme_text_color: "Primary"
+
+                                # CARD 4: FUEL
+                                MDCard:
+                                    style: "elevated"
+                                    orientation: "vertical"
+                                    padding: "16dp"
+                                    size_hint_y: None
+                                    height: "180dp"
+                                    radius: 24
+                                    md_bg_color: 1, 1, 1, 1
+                                    on_release: app.change_screen("fuel_list");app.load_fuel_list()
+                                    
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "8dp"
+                                        MDIcon:
+                                            icon: "gas-station"
+                                            font_size: "54sp"
+                                            halign: "center"
+                                            pos_hint: {"center_x": .5} # Center Alignment
+                                            theme_text_color: "Custom"
+                                            text_color: 0.9, 0.1, 0.1, 1
+                                        MDLabel:
+                                            text: "Diesel Cost"
+                                            halign: "center"
+                                            font_style: "Button"
+                                            theme_text_color: "Secondary"
+                                        MDLabel:
+                                            id: dash_fuel_cost
+                                            text: "₹ 0"
+                                            halign: "center"
+                                            font_style: "H5"
+                                            bold: True
+                                            theme_text_color: "Primary"
+
+                                # --- CARD 5: DUE PAYMENT (UDHAAR) ---
+                                 
+                                MDCard:
+                                    style: "elevated"
+                                    orientation: "vertical"
+                                    padding: "16dp"
+                                    size_hint_y: None
+                                    height: "180dp"
+                                    radius: 24
+                                    md_bg_color: 1, 1, 1, 1
+                                     
+
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        spacing: "8dp"
+                                        MDIcon:
+                                            icon: "cash-multiple"
+                                            font_size: "54sp"
+                                            halign: "center"
+                                            pos_hint: {"center_x": .5}
+                                            theme_text_color: "Custom"
+                                            text_color: 0.2, 0.2, 0.6, 1
+                                        MDLabel:
+                                            text: "Due Payment"
+                                            halign: "center"
+                                            font_style: "Button"
+                                            theme_text_color: "Secondary"
+                                        MDLabel:
+                                            id: dash_due_payment  # <--- Ye ID hona bahut zaroori hai
+                                            text: "₹ 0"
+                                            halign: "center"
+                                            font_style: "H5"
+                                            bold: True
+                                            theme_text_color: "Primary"
+
+                            MDCard:
+                                size_hint_y: None
+                                height: "350dp"
+                                radius: 20
+                                elevation: 2
+                                padding: "15dp"
+                                orientation: "vertical"
+                                md_bg_color: 1, 1, 1, 1
+
+                                MDBoxLayout:
+                                    adaptive_height: True
+                                    spacing: "10dp"
+                                    padding: [0, 0, 0, "10dp"]
+                                    MDIcon:
+                                        icon: "bell-alert"
+                                        theme_text_color: "Custom"
+                                        text_color: 1, 0.3, 0, 1 # Orange-Red color
+                                    MDLabel:
+                                        text: "IMPORTANT REMINDERS"
+                                        bold: True
+                                        font_style: "Subtitle1"
+
+                                ScrollView:
+                                    MDList:
+                                        id: reminder_list
+                                        # Yahan EMI aur Maintenance ke alerts aayenge
+                            
+            FuelScreen:
+                name: "fuel"
+            MaintenanceScreen:
+                name:"maintenance"
+            ReportScreen:
+                name: "reports"
+            CustomerScreen:
+                name: "customer"
+            DriverScreen:
+                name: "driver"
+            CustomerListScreen:
+                name: "customer_list"
+            DriverListScreen:
+                name: "driver_list"
+            MaintListScreen:
+                name: "maint_list"
+            FuelListScreen:
+                name: "fuel_list"
+            FinanceScreen:
+                name:"finance"
+            SignupScreen:    # Yeh aapki signup.kv wali screen hai
+                name: "signup"
+            LoginScreen:
+                name:"login"
+            ProfileScreen:
+                name:"profile"
+
+                
+
+
+    # ================= PROFESSIONAL SIDE MENU =================
+    MDBoxLayout:
+        id: side_menu
+        orientation: "vertical"
+        size_hint: None, None
+        width: "280dp"
+        height: root.height 
+        pos: (-self.width, 0)
+        md_bg_color: 1, 1, 1, 1
+        elevation: 12
+        radius: [0, 20, 20, 0]
+
+        # --- Menu Header (Blue Profile Box) ---
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: "170dp" # Thodi height badhai hai button ke liye
+            padding: "20dp"
+            spacing: "5dp"
+            md_bg_color: 0.12, 0.45, 0.92, 1 
+
+            # Header ke upar wala hissa: Icon aur Profile Button
+            MDBoxLayout:
+                adaptive_height: True
+                MDIcon:
+                    icon: "account-circle"
+                    font_size: "60sp"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                
+                Widget: # Spacer taaki button right mein chala jaye
+                
+                MDIconButton:
+                    icon: "chevron-right-circle-outline" # Sundar arrow button
+                    user_font_size: "24sp"
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 0.8
+                    on_release: 
+                        app.change_screen("profile")
+                        #app.toggle_menu()
+
+            MDLabel:
+                id: user_name_label  # <--- Ye ID sabse zaroori hai
+                text: "Loading..."   # Shuruat mein Loading dikhayega jab tak naam na aa jaye
+                font_style: "H6"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                adaptive_height: True
+
+            # Is clickable label par click karne se bhi profile khulegi
+            MDLabel:
+                text: "View Profile Details"
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: 0.8, 0.9, 1, 1
+                adaptive_height: True
+                on_touch_down: if self.collide_point(*args[1].pos): app.change_screen("profile"); app.toggle_menu()
+
+        # --- Menu List Items ---
+        ScrollView:
+            do_scroll_x: False
+            MDList:
+                id: menu_list
+                padding: 0
+                
+                # Sabhi items me app.toggle_menu() zaroor add karein taaki click par menu band ho jaye
+                OneLineIconListItem:
+                    text: "Dashboard"
+                    on_release: app.change_screen("dashboard"); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "view-dashboard-outline"
+
+                OneLineIconListItem:
+                    text: "Customer Management"
+                    on_press: app.change_screen("customer"); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "account-group-outline"
+
+                OneLineIconListItem:
+                    text: "Driver Management"
+                    on_release: app.change_screen("driver"); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "steering"
+
+                OneLineIconListItem:
+                    text: "Fuel Tracking"
+                    on_release: app.change_screen("fuel"); app.update_history_list(); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "gas-station-outline"
+
+                OneLineIconListItem:
+                    text: "Maintenance & Service"
+                    on_release: app.change_screen("maintenance"); app.update_maintenance_reminder(); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "hammer-wrench"
+
+                OneLineIconListItem:
+                    text: "Business Reports"
+                    on_release: app.change_screen("reports"); app.update_reports(); app.toggle_menu()
+                    IconLeftWidget:
+                        icon: "file-chart-outline"
+
+                MDSeparator: # Divider for professional look
+
+                OneLineIconListItem:
+                    text: "Logout"
+                    theme_text_color: "Custom"
+                    text_color: 1, 0, 0, 1
+                    on_release: app.logout() # Ya aapka logout function
+                    IconLeftWidget:
+                        icon: "logout"
+                        theme_text_color: "Custom"
+                        text_color: 1, 0, 0, 1

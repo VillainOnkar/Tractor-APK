@@ -1,0 +1,119 @@
+<LoanCard@MDCard>:
+    loan_id: ""
+    item_name: ""
+    bank: ""
+    total_loan: ""
+    total_paid: "0"
+    balance: "0"
+    progress: 0
+    alert_text: "Checking..."   # Naya property
+    alert_color: [1, 1, 1, 1]   # Naya property
+    
+    size_hint_y: None
+    height: "220dp"             # Height thodi badhai hai details ke liye
+    padding: "15dp"
+    radius: 20
+    elevation: 1
+    md_bg_color: 0.1, 0.1, 0.2, 1
+    orientation: 'vertical'
+    on_touch_down:
+        if self.collide_point(*args[1].pos) and args[1].is_double_tap: \
+        app.on_card_double_click(root.loan_id, root.item_name)
+
+    # Header: Name aur Delete
+    MDBoxLayout:
+        size_hint_y: None
+        height: "40dp"
+        MDLabel:
+            text: root.item_name
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            font_style: "H6"
+            bold: True
+        MDIconButton:
+            icon: "trash-can-outline"
+            theme_text_color: "Custom"
+            text_color: 1, 0.3, 0.3, 1
+            on_release: app.confirm_delete_loan(root.loan_id, root.item_name)
+
+    MDLabel:
+        text: "Bank: " + root.bank
+        theme_text_color: "Custom"
+        text_color: 0.7, 0.7, 0.7, 1
+        font_style: "Caption"
+        size_hint_y: None
+        height: "20dp"
+    
+    MDLabel:
+        text: root.total_loan
+        theme_text_color: "Custom"
+        text_color: 0.7, 0.7, 0.7, 1
+        font_style: "Caption"
+        size_hint_y: None
+        height: "20dp"
+
+    # Progress Info: Percentage aur Baki Amount
+    MDBoxLayout:
+        padding: [0, "10dp", 0, "5dp"]
+        MDLabel:
+            text: "Progress: " + str(int(root.progress)) + "%"
+            theme_text_color: "Custom"
+            text_color: 0.8, 0.8, 0.8, 1
+            font_style: "Caption"
+        MDLabel:
+            text: "Baki: ₹ " + root.balance
+            halign: "right"
+            theme_text_color: "Custom"
+            text_color: 1, 0.5, 0.5, 1 # Light Red for balance
+            bold: True
+            font_style: "Caption"
+
+    # Progress Bar
+    MDProgressBar:
+        value: root.progress
+        color: 0, 1, 0, 1
+        back_color: 1, 1, 1, 0.1
+        size_hint_y: None
+        height: "8dp"
+
+    # --- Naya Alert Section ---
+    MDBoxLayout:
+        padding: [0, "10dp", 0, 0]
+        size_hint_y: None
+        height: "45dp"
+
+        MDRectangleFlatIconButton:
+            icon: "clock-alert-outline" if "ALERT" in root.alert_text else "calendar-check"
+            text: root.alert_text
+            theme_text_color: "Custom"
+            text_color: root.alert_color
+            icon_color: root.alert_color
+            line_color: 0, 0, 0, 0  # Border ko invisible karne ke liye
+            font_size: "12sp"
+            size_hint_x: 1
+            halign: "left"
+            on_release: app.show_emi_details(root.loan_id, root.item_name, root.alert_text)
+
+<FinanceScreen>:
+    name: "finance"
+    MDFloatLayout:
+        md_bg_color: 0.95, 0.96, 0.98, 1
+        
+        MDBoxLayout:
+            orientation: 'vertical'
+            pos_hint: {"top": 1}
+             
+            ScrollView:
+                MDBoxLayout:
+                    id: loan_list_container
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    padding: ["15dp", "15dp", "15dp", "90dp"]
+                    spacing: "15dp"
+
+        # Yeh button aapko SETUP screen par le jayega
+        MDFloatingActionButton:
+            icon: "plus"
+            md_bg_color: 1, 0.75, 0, 1
+            pos_hint: {"center_x": .85, "center_y": .12}
+            on_release: app.setup_loan_details()

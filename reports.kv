@@ -1,0 +1,130 @@
+<ReportScreen>:
+    name: "reports"
+    
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.96, 0.98, 1
+
+        ScrollView:
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "16dp"
+                spacing: "20dp"
+
+                # --- PROFIT SUMMARY CARD ---
+                MDCard:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: "220dp"
+                    padding: "15dp"
+                    radius: 20
+                    md_bg_color: 0.1, 0.1, 0.1, 1
+                    elevation: 4
+
+                    MDLabel:
+                        text: "NET PROFIT"
+                        halign: "center"
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 0.6
+                        font_style: "Caption"
+                    
+                    MDLabel:
+                        id: net_profit_label
+                        text: "₹ 0"
+                        halign: "center"
+                        font_style: "H4"
+                        bold: True
+                        theme_text_color: "Custom"
+                        text_color: 0, 1, 0, 1
+
+                    MDSeparator:
+                        color: 1, 1, 1, 0.1
+
+                    MDGridLayout:
+                        cols: 3
+                        padding: [0, "15dp", 0, 0]
+                        
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            MDLabel:
+                                text: "Income"
+                                halign: "center"
+                                font_style: "Caption"
+                                text_color: 1, 1, 1, 0.6
+                                theme_text_color: "Custom"
+                            MDLabel:
+                                id: total_income_label
+                                text: "₹ 0"
+                                halign: "center"
+                                bold: True
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            MDLabel:
+                                text: "Fuel"
+                                halign: "center"
+                                font_style: "Caption"
+                                text_color: 1, 1, 1, 0.6
+                                theme_text_color: "Custom"
+                            MDLabel:
+                                id: total_expense_label
+                                text: "₹ 0"
+                                halign: "center"
+                                bold: True
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            MDLabel:
+                                text: "Maint."
+                                halign: "center"
+                                font_style: "Caption"
+                                text_color: 1, 1, 1, 0.6
+                                theme_text_color: "Custom"
+                            MDLabel:
+                                id: maint_label
+                                text: "₹ 0"
+                                halign: "center"
+                                bold: True
+                                text_color: 1, 1, 1, 1
+                                theme_text_color: "Custom"
+
+                # --- FILTERS ---
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    adaptive_height: True
+                    spacing: "10dp"
+                    MDRaisedButton:
+                        text: "DAY"
+                        on_release: app.show_date_input()
+                        size_hint_x: 1
+                    MDRaisedButton:
+                        text: "MONTH"
+                        on_release: app.show_month_input()
+                        size_hint_x: 1
+                    MDRaisedButton:
+                        text: "YEAR"
+                        on_release: app.show_year_input()
+                        size_hint_x: 1
+
+                MDFillRoundFlatIconButton:
+                    icon: "file-pdf-box"
+                    text: "DOWNLOAD PDF REPORT"
+                    size_hint_x: 1
+                    md_bg_color: 0.8, 0, 0, 1
+                    on_release: app.export_to_pdf()
+
+                MDLabel:
+                    text: "Activity Log"
+                    bold: True
+                    font_style: "H6"
+
+                MDBoxLayout:
+                    id: report_history_list
+                    orientation: "vertical"
+                    adaptive_height: True
+                    spacing: "10dp"

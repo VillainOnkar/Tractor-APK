@@ -1,0 +1,98 @@
+<FuelRowCard@MDCard>:
+    f_id: ""
+    f_date: ""
+    f_station: ""
+    f_liters: ""
+    f_total: ""
+    
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "100dp"
+    padding: "15dp"
+    radius: 15
+    elevation: 2
+    md_bg_color: 1, 1, 1, 1
+    on_release: app.show_fuel_details(root.f_id)
+
+    # --- Left Section: Date & Station ---
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "4dp"
+        MDLabel:
+            text: root.f_station
+            bold: True
+            font_style: "H6"
+            theme_text_color: "Primary"
+            shorten: True
+            shorten_from: "right"
+        MDBoxLayout:
+            adaptive_height: True
+            spacing: "4dp"
+            MDIcon:
+                icon: "calendar-outline"
+                font_size: "14sp"
+                theme_text_color: "Secondary"
+            MDLabel:
+                text: root.f_date
+                theme_text_color: "Secondary"
+                font_style: "Caption"
+
+    # --- Right Section: Liters, Amount & Delete ---
+    MDBoxLayout:
+        orientation: "horizontal"
+        adaptive_width: True
+        spacing: "10dp"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_width: True
+            spacing: "2dp"
+            MDLabel:
+                text: f"{root.f_liters} Liters"
+                halign: "right"
+                font_style: "Caption"
+                theme_text_color: "Secondary"
+                bold: True
+            MDLabel:
+                text: f"₹{root.f_total}"
+                bold: True
+                halign: "right"
+                font_style: "H6"
+                theme_text_color: "Primary"
+                adaptive_size: True
+
+        MDIconButton:
+            icon: "delete-outline"
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            pos_hint: {"center_y": .5}
+            on_release: app.confirm_fuel_delete(root.f_id)
+
+<FuelListScreen>:
+    name: "fuel_list"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.96, 0.98, 1
+
+
+        # Search Bar (Station, Date ya Amount ke liye)
+        MDBoxLayout:
+            size_hint_y: None
+            height: "75dp"
+            padding: ["15dp", "10dp", "15dp", "10dp"]
+            MDTextField:
+                id: fuel_search
+                hint_text: "Search Station, Date or Amount..."
+                mode: "round"
+                fill_color_normal: 1, 1, 1, 1
+                icon_left: "magnify"
+                on_text: app.filter_fuel(self.text)
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                id: fuel_container
+                orientation: 'vertical'
+                adaptive_height: True
+                padding: "15dp"
+                spacing: "12dp"

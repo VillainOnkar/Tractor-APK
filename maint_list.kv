@@ -1,0 +1,97 @@
+<MaintenanceRowCard@MDCard>:
+    m_id: ""
+    m_type: ""
+    m_date: ""
+    m_cost: ""
+    m_status: "Paid"
+    status_color: [0, 0.6, 0.2, 1]
+    
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "100dp"
+    padding: "15dp"
+    radius: 15
+    elevation: 2
+    md_bg_color: 1, 1, 1, 1
+    on_release: app.show_maintenance_details(root.m_id)
+
+    # --- Left Section: Service Info ---
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: "4dp"
+        MDLabel:
+            text: root.m_type
+            bold: True
+            font_style: "H6"
+            theme_text_color: "Primary"
+            shorten: True        # Agar kaam ka naam bahut lamba ho
+            shorten_from: "right"
+        MDLabel:
+            text: f"Date: {root.m_date}"
+            theme_text_color: "Secondary"
+            font_style: "Caption"
+
+    # --- Right Section: Amount & Action ---
+    MDBoxLayout:
+        orientation: "horizontal"
+        adaptive_width: True
+        spacing: "8dp"
+
+        # Amount and Status Container
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_width: True  # Content ke hisaab se jagah lega
+            spacing: "2dp"
+            
+            MDLabel:
+                text: root.m_status
+                halign: "right"
+                font_style: "Caption"
+                theme_text_color: "Custom"
+                text_color: root.status_color
+                bold: True
+
+            MDLabel:
+                text: f"₹{root.m_cost}"
+                bold: True
+                halign: "right"
+                font_style: "H6"
+                # Long amount adjustment
+                adaptive_size: True
+                theme_text_color: "Primary"
+
+        # Delete Button (Iska size fix hai)
+        MDIconButton:
+            icon: "delete-outline"
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            pos_hint: {"center_y": .5}
+            on_release: app.confirm_maintenance_delete(root.m_id)
+
+<MaintListScreen>:
+    name: "maint_list"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.96, 0.98, 1
+
+         
+        MDBoxLayout:
+            size_hint_y: None
+            height: "75dp"
+            padding: ["15dp", "10dp", "15dp", "10dp"]
+            MDTextField:
+                id: maint_search
+                hint_text: "Search by Service or Date..."
+                mode: "round"
+                fill_color_normal: 1, 1, 1, 1
+                icon_left: "magnify"
+                on_text: app.filter_maintenance(self.text)
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                id: maintenance_container
+                orientation: 'vertical'
+                adaptive_height: True
+                padding: "15dp"
+                spacing: "12dp"

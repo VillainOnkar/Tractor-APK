@@ -1,0 +1,193 @@
+# ================= SIGNUP SCREEN =================
+<SignupScreen>:
+    name: "signup"
+    on_enter: 
+        app.root.ids.top_bar.height = 0
+        app.root.ids.top_bar.opacity = 0
+
+    MDFloatLayout:
+        md_bg_color: 0.1, 0.1, 0.12, 1
+
+        # Header Card
+        MDCard:
+            size_hint: (1, 0.15)
+            pos_hint: {"center_x": .5, "top": 1}
+            md_bg_color: 1, 0.75, 0, 1
+            radius: [0, 0, 40, 40]
+            MDLabel:
+                text: "CREATE ACCOUNT"
+                halign: "center"
+                font_style: "H6"
+                bold: True
+                theme_text_color: "Custom"
+                text_color: 0.1, 0.1, 0.12, 1
+
+        # Main Input Card
+        MDCard:
+            size_hint: (0.9, 0.8)
+            pos_hint: {"center_x": .5, "center_y": 0.43}
+            radius: 20
+            elevation: 4
+            padding: "15dp"
+            md_bg_color: 1, 1, 1, 1
+
+            # ScrollView hatakar seedha Layout rakha hai
+            MDBoxLayout:
+                orientation: "vertical"
+                spacing: "8dp" # Spacing thodi kam ki hai taaki sab fit ho jaye
+                padding: [0, "5dp", 0, "5dp"]
+
+                MDTextField:
+                    id: full_name
+                    hint_text: "Full Name"
+                    icon_left: "account-edit"
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: email
+                    hint_text: "Email ID"
+                    icon_left: "email"
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: username
+                    hint_text: "Username"
+                    icon_left: "at"
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: phone
+                    hint_text: "Phone Number"
+                    icon_left: "phone"
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: address
+                    hint_text: "Village/Address"
+                    icon_left: "map-marker"
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: password
+                    hint_text: "Password"
+                    icon_left: "key-variant"
+                    password: True
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextField:
+                    id: confirm_password
+                    hint_text: "Confirm Password"
+                    icon_left: "shield-check"
+                    password: True
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDRaisedButton:
+                    text: "REGISTER NOW"
+                    size_hint_x: 1
+                    height: "45dp"
+                    md_bg_color: 1, 0.75, 0, 1
+                    text_color: 0, 0, 0, 1
+                    on_release: app.process_signup()
+
+                MDFlatButton:
+                    text: "Go To Login Page!"
+                    pos_hint: {"center_x": .5}
+                    theme_text_color: "Custom"
+                    text_color: 1, 0.75, 0, 1
+                    on_release: root.manager.current = "login"
+                    
+# ================= LOGIN SCREEN =================
+<LoginScreen>:
+    name: "login"
+    on_enter: 
+        app.root.ids.top_bar.height = 0
+        app.root.ids.top_bar.opacity = 0
+
+    MDFloatLayout:
+        md_bg_color: 0.1, 0.1, 0.12, 1 
+
+        MDCard:
+            size_hint: (1.5, 0.45)
+            pos_hint: {"center_x": .5, "top": 1.1}
+            md_bg_color: 1, 0.75, 0, 1 
+            radius: [0, 0, 300, 300]
+            elevation: 0
+
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            pos_hint: {"center_x": .5, "center_y": .78}
+            MDIcon:
+                icon: "tractor-variant"
+                font_size: "70sp"
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 0.1, 0.1, 0.12, 1
+                pos_hint: {"center_x": .5}
+            MDLabel:
+                text: "TRACTOR MANAGER"
+                halign: "center"
+                bold: True
+                font_style: "H5"
+                theme_text_color: "Custom"
+                text_color: 0.1, 0.1, 0.12, 1
+
+        MDCard:
+            size_hint: (0.88, None)
+            height: self.minimum_height
+            pos_hint: {"center_x": .5, "center_y": 0.42}
+            padding: "25dp"
+            spacing: "15dp"
+            orientation: "vertical"
+            radius: 20
+            elevation: 4
+            md_bg_color: 1, 1, 1, 1
+
+            MDTextField:
+                id: user
+                hint_text: "Username"
+                icon_left: "account"
+                mode: "rectangle"
+                line_color_focus: 1, 0.75, 0, 1
+
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                spacing: "2dp"
+                
+                MDTextField:
+                    id: pwd
+                    hint_text: "Password"
+                    icon_left: "lock"
+                    password: True
+                    mode: "rectangle"
+                    line_color_focus: 1, 0.75, 0, 1
+
+                MDTextButton:
+                    text: "Forgot Password?"
+                    pos_hint: {"right": 1}
+                    custom_color: 0.1, 0.1, 0.12, 1
+                    font_style: "Caption"
+                    on_release:app.show_forgot_password_dialog()
+
+            MDRaisedButton:
+                text: "LOG IN"
+                size_hint_x: 1
+                height: "50dp"
+                md_bg_color: 1, 0.75, 0, 1
+                text_color: 0, 0, 0, 1
+                on_release: app.process_login()
+
+        MDTextButton:
+            text: "New User? Create Account"
+            pos_hint: {"center_x": .5, "center_y": .12}
+            theme_text_color: "Custom"
+            text_color: 1, 0.75, 0, 1
+            on_release: root.manager.current = "signup"

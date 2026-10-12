@@ -1,0 +1,80 @@
+<DriverRowCard@MDCard>:
+    driver_id: ""
+    name: ""
+    phone: ""
+    salary: ""       # Ye "Full Paid" ya "₹ 500" dikhayega
+    status_text: ""  # Ye "Hisaab Clear" ya "Pending" dikhayega
+    amount_color: [0, 0, 0, 1]
+    on_release: app.show_driver_details(root.driver_id)
+    
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "100dp"
+    padding: "12dp"
+    radius: 15
+    elevation: 2
+    md_bg_color: 1, 1, 1, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+            text: root.name
+            bold: True
+            font_style: "H6"
+        MDLabel:
+            text: f"Phone: {root.phone}"
+            theme_text_color: "Secondary"
+            font_style: "Caption"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_width: True
+        spacing: "2dp"
+        MDLabel:
+            text: root.status_text
+            halign: "right"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: root.amount_color
+        MDLabel:
+            text: root.salary
+            halign: "right"
+            bold: True
+            theme_text_color: "Custom"
+            text_color: root.amount_color
+
+    MDBoxLayout:
+        adaptive_width: True
+        MDIconButton:
+            icon: "pencil" # Payment jodne ke liye
+            on_release: app.edit_driver_payment_dialog(root.driver_id)
+        MDIconButton:
+            icon: "delete"
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            on_release: app.confirm_driver_delete(root.driver_id)
+
+<DriverListScreen@MDScreen>:
+    name: "driver_list_screen"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.96, 0.98, 1
+
+        # --- Search Bar (Customer List jaisa) ---
+        MDBoxLayout:
+            size_hint_y: None
+            height: "70dp"
+            padding: ["15dp", "5dp", "15dp", "5dp"]
+            MDTextField:
+                hint_text: "Search Driver Name or Status..."
+                mode: "round"
+                icon_left: "magnify"
+                on_text: app.filter_drivers(self.text)
+
+        ScrollView:
+            MDBoxLayout:
+                id: driver_list_container
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "15dp"
+                spacing: "12dp"

@@ -1,0 +1,128 @@
+<ProfileScreen>:
+    name: "profile"
+    on_pre_enter: app.load_profile_data()
+
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.95, 0.95, 1
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "20dp"
+                spacing: "20dp"  # Dono cards ke beech ka saaf gap
+
+                # --- BOX 1: PROFILE HEADER (Custom Height: 200dp) ---
+                MDCard:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: "200dp"
+                    radius: 15
+                    elevation: 1
+                    padding: "20dp"
+                    md_bg_color: 1, 1, 1, 1
+
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        spacing: "10dp"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        
+                        MDIcon:
+                            icon: "account-circle"
+                            font_size: "100sp"
+                            pos_hint: {"center_x": .5}
+                            theme_text_color: "Custom"
+                            text_color: 0.12, 0.45, 0.92, 1
+
+                        MDLabel:
+                            id: profile_full_name
+                            text: "User Name"
+                            halign: "center"
+                            font_style: "H6"
+                            bold: True
+                            theme_text_color: "Primary"
+
+                # --- BOX 2: PERSONAL DETAILS (Custom Height: 320dp) ---
+                MDCard:
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: "320dp" # Finance style bada box
+                    radius: 15
+                    elevation: 1
+                    padding: ["15dp", "15dp", "15dp", "15dp"]
+                    md_bg_color: 1, 1, 1, 1
+
+                    MDLabel:
+                        text: "PERSONAL DETAILS"
+                        font_style: "Button"
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: "40dp"
+
+                    MDSeparator:
+                        height: "1dp"
+
+                    # Email Row
+                    ProfileInfoRow:
+                        id: email_info
+                        icon: "email"
+                        label: "Email"
+                        value: "onkar@gmail.com"
+
+                    # Phone Row
+                    ProfileInfoRow:
+                        id: phone_info
+                        icon: "phone"
+                        label: "Phone"
+                        value: "7499419090"
+
+                    # Address Row
+                    ProfileInfoRow:
+                        id: address_info
+                        icon: "map-marker"
+                        label: "Address"
+                        value: "Dhotri"
+
+                # Delete Button Container
+                MDBoxLayout:
+                    adaptive_height: True
+                    padding: [0, "20dp", 0, "20dp"]
+                    MDRaisedButton:
+                        text: "DELETE ACCOUNT PERMANENTLY"
+                        size_hint_x: 1
+                        height: "50dp"
+                        md_bg_color: 1, 0, 0, 1
+                        on_release: app.show_delete_account_dialog()
+
+# --- Custom Stable Row Template ---
+<ProfileInfoRow@MDBoxLayout>:
+    icon: ""
+    label: ""
+    value: ""
+    size_hint_y: None
+    height: "80dp"  # Har row ki height fix taaki overlap na ho
+    padding: ["5dp", "10dp", "5dp", "10dp"]
+    spacing: "15dp"
+
+    MDIcon:
+        icon: root.icon
+        pos_hint: {"center_y": .5}
+        font_size: "24sp"
+        theme_text_color: "Custom"
+        text_color: 0.12, 0.45, 0.92, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+            text: root.label
+            font_style: "Caption"
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: "20dp"
+        MDLabel:
+            text: root.value
+            font_style: "Body1"
+            theme_text_color: "Primary"
+            bold: True

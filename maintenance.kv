@@ -1,0 +1,103 @@
+<MaintenanceScreen>:
+    name: "maintenance"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.95, 0.96, 0.97, 1 # Light premium grey background
+
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "12dp"
+                spacing: "20dp" # Cards ke beech professional gap
+
+                # --- 1. MODERN INPUT CARD ---
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "12dp"
+                    size_hint_y: None
+                    height: "420dp"
+                    radius: 18
+                    elevation: 2
+                    md_bg_color: 1, 1, 1, 1
+
+                    MDBoxLayout:
+                        adaptive_height: True
+                        spacing: "10dp"
+                        MDIcon:
+                            icon: "tools"
+                            theme_text_color: "Custom"
+                            text_color: 0.6, 0.2, 0.2, 1
+                        MDLabel:
+                            text: "Service & Maintenance"
+                            bold: True
+                            font_style: "H6"
+                            theme_text_color: "Primary"
+
+                    # Form Fields
+                    MDTextField:
+                        id: m_date
+                        hint_text: "Service Date"
+                        helper_text_mode: "on_focus"
+                        icon_left: "calendar-edit"
+                        mode: "rectangle"
+
+                    MDTextField:
+                        id: m_type
+                        hint_text: "Work Type (Oil, Filter, etc.)"
+                        icon_left: "hammer-screwdriver"
+                        mode: "rectangle"
+
+                    MDTextField:
+                        id: m_cost
+                        hint_text: "Maintenance Cost (₹)"
+                        icon_left: "currency-inr"
+                        mode: "rectangle"
+                        input_filter: "float"
+
+                    MDTextField:
+                        id: m_next_date
+                        hint_text: "Next Reminder Date"
+                        icon_left: "bell-ring-outline"
+                        mode: "rectangle"
+
+                    MDRaisedButton:
+                        text: "SAVE MAINTENANCE RECORD"
+                        size_hint_x: 1
+                        height: "48dp"
+                        md_bg_color: 0.2, 0.5, 0.3, 1
+                        on_release: app.save_maintenance_entry()
+
+                # --- 2. ATTRACTIVE REMINDERS SECTION ---
+                MDCard:
+                    orientation: "vertical"
+                    padding: "16dp"
+                    spacing: "10dp"
+                    size_hint_y: None
+                    height: "300dp" # Kafi jagah reminders ke liye
+                    radius: 18
+                    elevation: 1.5
+                    md_bg_color: 1, 1, 1, 1
+
+                    MDBoxLayout:
+                        adaptive_height: True
+                        MDLabel:
+                            text: "UPCOMING REMINDERS"
+                            font_style: "Button"
+                            bold: True
+                            theme_text_color: "Secondary"
+                        MDIcon:
+                            icon: "chevron-right"
+                            theme_text_color: "Hint"
+
+                    # Blue Accent Line (Design element)
+                    MDSeparator:
+                        height: "2dp"
+                        md_bg_color: 0.9, 0.95, 1, 1
+
+                    ScrollView:
+                        MDList:
+                            id: reminder_list
+                            padding: 0

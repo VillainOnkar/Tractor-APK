@@ -1,0 +1,86 @@
+<CustomerRowCard@MDCard>:
+    cust_id: ""
+    name: ""
+    phone: ""
+    amount: ""
+    village: ""
+    status_text: "Pending"        # Naya: "Pending" ya "Full Paid" ke liye
+    amount_color: [1, 0, 0, 1]    # Naya: Red ya Green rang ke liye (Default Red)
+    
+    # Card par click karne se details dikhengi
+    on_release: app.show_customer_details(root.cust_id)
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "100dp"
+    padding: "12dp"
+    radius: 15
+    elevation: 2
+    md_bg_color: 1, 1, 1, 1
+
+    MDBoxLayout:
+        orientation: "vertical"
+        MDLabel:
+            text: root.name
+            bold: True
+            font_style: "H6"
+        MDLabel:
+            text: f"Village: {root.village}"
+            theme_text_color: "Secondary"
+            font_style: "Caption"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_width: True
+        spacing: "2dp"
+        MDLabel:
+            text: root.status_text  # Yahan "Pending" ya "Full Paid" dikhega
+            halign: "right"
+            font_style: "Caption"
+            theme_text_color: "Custom"
+            text_color: root.amount_color # Rang badlega
+        MDLabel:
+            text: root.amount      # Python se hum "₹ 500" ya "0" bhejenge
+            halign: "right"
+            bold: True
+            font_style: "Subtitle1"
+            theme_text_color: "Custom"
+            text_color: root.amount_color # Rang badlega
+
+    MDBoxLayout:
+        adaptive_width: True
+        MDIconButton:
+            icon: "pencil" # Edit Button
+            on_release: app.edit_customer_dialog(root.cust_id)
+        MDIconButton:
+            icon: "delete"
+            theme_text_color: "Custom"
+            text_color: 1, 0, 0, 1
+            on_release: app.confirm_delete(root.cust_id)
+
+<CustomerListScreen>:
+    name:"customer_list"
+    MDBoxLayout:
+        orientation: "vertical"
+        md_bg_color: 0.98, 0.98, 1, 1  # Light professional background
+
+        # ---------- SEARCH BAR ----------
+        MDBoxLayout:
+            size_hint_y: None
+            height: "60dp"
+            padding: ["16dp", "8dp", "16dp", "8dp"]
+            MDTextField:
+                id: search_field
+                hint_text: "Search customer name..."
+                mode: "round"
+                on_text: app.filter_customers(self.text)
+                icon_left: "magnify"
+
+        # ---------- LIST CONTAINER ----------
+        ScrollView:
+            do_scroll_x: False
+            MDBoxLayout:
+                id: customer_list_container
+                orientation: "vertical"
+                adaptive_height: True
+                padding: "16dp"
+                spacing: "12dp"
